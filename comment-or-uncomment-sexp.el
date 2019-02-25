@@ -37,7 +37,8 @@
 ;;; Code:
 
 (defun comment-or-uncomment-sexp-uncomment-sexp (&optional n)
-  "Uncomment a sexp around point."
+  "Uncomment a sexp around point. Or if provided, around the
+point N."
   (interactive "P")
   (let* ((initial-point (point-marker))
          (inhibit-field-text-motion t)
