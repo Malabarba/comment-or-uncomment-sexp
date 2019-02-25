@@ -3,7 +3,10 @@
 ;; Copyright (C) 2019  Artur Malabarba
 
 ;; Author: Artur Malabarba <artur@endlessparentheses.com>
+;; Version: 1.0.0
+;; Homepage: https://github.com/Malabarba/comment-or-uncomment-sexp
 ;; Keywords: convenience
+;; Package-Requires: ((emacs "24"))
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -19,12 +22,21 @@
 ;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-
-;; 
+;;
+;; Allows for commenting or uncommenting of sexps.
+;;
+;; For visual explanation see:
+;; http://endlessparentheses.com/a-comment-or-uncomment-sexp-command.html
+;;
+;; Usage: M-x comment-or-uncomment-sexp
+;;
+;; Or to make it easier to run, bind it to a key combination:
+;;
+;; (global-set-key (kbd "C-M-;") #'comment-or-uncomment-sexp)
 
 ;;; Code:
 
-(defun uncomment-sexp (&optional n)
+(defun comment-or-uncomment-sexp-uncomment-sexp (&optional n)
   "Uncomment a sexp around point."
   (interactive "P")
   (let* ((initial-point (point-marker))
@@ -81,7 +93,7 @@
     (unless n
       (goto-char initial-point))))
 
-(defun comment-sexp--raw ()
+(defun comment-or-uncomment-sexp-comment-sexp--raw ()
   "Comment the sexp at point or ahead of point."
   (pcase (or (bounds-of-thing-at-point 'sexp)
              (save-excursion
@@ -107,9 +119,9 @@ With a prefix argument N, (un)comment that many sexps."
              (save-excursion
                (comment-forward 1)
                (point))))
-      (uncomment-sexp n)
+      (comment-or-uncomment-sexp-uncomment-sexp n)
     (dotimes (_ (or n 1))
-      (comment-sexp--raw))))
+      (comment-or-uncomment-sexp-comment-sexp--raw))))
 
 (provide 'comment-or-uncomment-sexp)
 ;;; comment-or-uncomment-sexp.el ends here
